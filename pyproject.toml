@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sabeel-pipeline"
+version = "0.1.0"
+description = "Map confirmed SAST findings to MITRE ATT&CK via the CWE-CAPEC-ATT&CK chain, with SOC detection enrichment."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "mitreattack-python",
+    "lxml",
+    "sentence-transformers",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "types-pyyaml",
+    "pandas-stubs",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pipeline", "eval"]
+
+[tool.ruff]
+target-version = "py311"
+# Downloaded datasets and scan targets are third-party; never lint/format them.
+extend-exclude = ["data", "targets", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["mitreattack.*", "stix2.*", "lxml.*", "sentence_transformers.*", "torch.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

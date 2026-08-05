@@ -1,0 +1,21 @@
+# Exact versions used for all reported results.
+# pyproject.toml is the canonical dependency source; this file pins the installed
+# versions for reproducibility (`pip install -r requirements.txt`).
+
+# core runtime
+pandas==2.2.3
+lxml==5.3.0
+PyYAML==6.0.2
+mitreattack-python==6.1.0
+sentence-transformers==5.6.0
+torch==2.12.1
+
+# SAST scanner 
+bandit==1.9.4
+# semgrep==1.168.0   # supported by normalize.py; 
+
+# dev / QA
+ruff==0.15.20
+mypy==1.14.1
+pytest==8.3.4
+types-PyYAML
