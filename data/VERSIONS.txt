@@ -1,0 +1,54 @@
+# data/VERSIONS.txt — pinned dataset & tool versions (reproducibility manifest)
+#
+# RULE: pin once, up front. NEVER refresh mid-experiment — a
+# version bump invalidates prior coverage/plausibility numbers. pipeline/run.py
+# echoes this file into out/ run metadata. Regenerate only via
+# `python -m pipeline.data.refresh_cti`, and only to start a fresh experiment.
+#
+# Pinned on: 2026-07-06   (versions verified current as of this date)
+
+## Locked design choices ---------------------------------------------------
+attack_stix_format   = 2.1          # attack-stix-data repo, NOT legacy mitre/cti (2.0)
+scan_target          = pygoat       # Python intentionally-vulnerable app (Bandit is Python-only)
+nlp_backend          = sentence-transformers   # all-MiniLM-L6-v2 (text-similarity, RQ2)
+
+## Bridge + gold + detection datasets --------------------------------------
+# 1. MITRE ATT&CK Enterprise (techniques + detection data sources)  [O4, O6]
+attack_version       = 19.1
+attack_domain        = enterprise-attack
+attack_source        = https://github.com/mitre-attack/attack-stix-data   (enterprise-attack/enterprise-attack-19.1.json)
+
+# 2. CWE catalogue  — CWE->CAPEC hop (RelatedAttackPatterns)         [O4]
+cwe_version          = 4.20
+cwe_source           = https://cwe.mitre.org/data/xml/cwec_v4.20.xml.zip
+
+# 3. CAPEC catalogue — CAPEC->ATT&CK hop (Taxonomy_Mappings/ATTACK)  [O4]
+capec_version        = 3.9
+capec_source         = https://capec.mitre.org/data/xml/capec_v3.9.xml
+
+# 4. Mappings Explorer (CTID) — validation ground truth             [O7]
+mappings_explorer_commit = 47d11bbd8c5163700c888ee7ff9d2bb5bfc66389   # main @ 2026-06-05
+mappings_explorer_source = https://github.com/center-for-threat-informed-defense/mappings-explorer
+# NOTE: CTID data is primarily CVE->ATT&CK. Confirm a usable CWE->technique
+# gold subset exists here before relying on it (see open decision, prior notes).
+
+# 5. Sigma ruleset — SOC detection content                          [O6]
+sigma_release        = r2026-04-01
+sigma_commit         = 0e3b749e0d85cd943706ed610a1447f0d54e8388   # 2026-04-28
+sigma_source         = https://github.com/SigmaHQ/sigma
+
+## Access libraries & scanners (pin — findings depend on them) -------------
+mitreattack_python   = 6.1.0        # MitreAttackData reader for the STIX bundle
+bandit               = 1.9.4        # SAST scanner (Python)                    [O2]
+semgrep              = 1.168.0      # SAST scanner (optional, multi-language)  [O2]
+semgrep_ruleset      = p/python     # PIN a fixed ruleset — do NOT use --config auto (non-deterministic)
+
+## NLP model — pin model + revision + seed for determinism          [O5]
+st_library           = sentence-transformers==<pin-at-install>
+st_model             = sentence-transformers/all-MiniLM-L6-v2
+st_model_revision    = <pin-commit-sha-at-download>   # HF model repo revision
+st_seed              = 42
+
+## Scan target — pin the app commit so the CWE distribution is fixed [O2]
+pygoat_commit        = 19d17cc8874861142b330636d068bbde54e86b85
+pygoat_source        = https://github.com/adeyosemanputra/pygoat
