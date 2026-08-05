@@ -5,6 +5,11 @@ Maps confirmed SAST findings to MITRE ATT&CK techniques via the
 SOC detection enrichment (Sigma rules + ATT&CK data sources). MSc dissertation
 artefact — reproducible and fully traceable.
 
+![System architecture](docs/figures/A1_system_architecture.png)
+
+> All figures (architecture, process, and results charts) are in
+> [`docs/figures/`](docs/figures/README.md).
+
 ## Requirements
 
 - Python 3.11+ (developed on 3.13)
@@ -65,7 +70,7 @@ mypy pipeline eval
 | Detection yield (RQ3) | Sigma 81% · data source 96% |
 | Plausibility (RQ1) | 15% strict / ~40% lenient (20 sampled) |
 
-
+![Coverage: authoritative vs combined](docs/figures/C2_coverage.png)
 
 Reproducibility: same input + same `data/VERSIONS.txt` versions → identical
 output (deterministic; no wall-clock or unseeded randomness in mapping).
