@@ -7,9 +7,6 @@ artefact — reproducible and fully traceable.
 
 ![System architecture](docs/figures/A1_system_architecture.png)
 
-> All figures (architecture, process, and results charts) are in
-> [`docs/figures/`](docs/figures/README.md).
-
 ## Requirements
 
 - Python 3.11+ (developed on 3.13)
