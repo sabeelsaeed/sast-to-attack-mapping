@@ -1,0 +1,38 @@
+{
+  "errors": [],
+  "paths": { "scanned": ["targets/app/config.py", "targets/app/db.py"] },
+  "results": [
+    {
+      "check_id": "python.lang.security.audit.hardcoded-password.hardcoded-password",
+      "path": "targets/app/config.py",
+      "start": { "line": 2, "col": 1, "offset": 10 },
+      "end": { "line": 2, "col": 20, "offset": 29 },
+      "extra": {
+        "message": "Hardcoded credentials detected; do not embed secrets in source.",
+        "severity": "ERROR",
+        "metadata": {
+          "cwe": ["CWE-798: Use of Hard-coded Credentials"],
+          "confidence": "HIGH",
+          "owasp": ["A07:2021 - Identification and Authentication Failures"]
+        },
+        "lines": "password = \"hunter2\""
+      }
+    },
+    {
+      "check_id": "python.lang.security.audit.sql-injection.sql-injection-db-cursor",
+      "path": "targets/app/db.py",
+      "start": { "line": 4, "col": 9, "offset": 88 },
+      "end": { "line": 4, "col": 55, "offset": 134 },
+      "extra": {
+        "message": "Detected string concatenation in a SQL query.",
+        "severity": "WARNING",
+        "metadata": {
+          "cwe": ["CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"],
+          "confidence": "MEDIUM"
+        },
+        "lines": "q = \"SELECT * FROM users WHERE name = '%s'\" % name"
+      }
+    }
+  ],
+  "version": "1.168.0"
+}
