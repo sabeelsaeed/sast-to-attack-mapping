@@ -1,0 +1,13 @@
+{
+  "coverage": {
+    "authoritative": 0.2615,
+    "combined": 0.9385,
+    "n_findings": 65
+  },
+  "data_source_yield": 0.9641,
+  "plausibility": {
+    "n_labelled": 20,
+    "plausible_rate": 0.15
+  },
+  "sigma_yield": 0.8103
+}
