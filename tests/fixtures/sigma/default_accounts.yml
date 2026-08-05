@@ -1,0 +1,15 @@
+title: Test Rule - Default Accounts
+id: 22222222-2222-2222-2222-222222222222
+status: test
+description: Fixture rule tagged with a sub-technique.
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4624
+    condition: selection
+level: medium
+tags:
+    - attack.defense-evasion
+    - attack.t1078.001
